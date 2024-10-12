@@ -1,15 +1,19 @@
 //C++
 class Solution {
+    //this solution run less than O(n^2)
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         vector<int> result;
+        unordered_map<int, int> myMap;
         for(int i = 0; i < nums.size(); ++i){
-            for(int j = i + 1; j < nums.size(); ++j){
-                if (nums[i] + nums[j] == target){
-                    result.push_back(i);
-                    result.push_back(j);
-                    break;
-                }
+            myMap[nums[i]] = i;
+        }
+        for(int i = 0; i < nums.size(); ++i){
+            int temp = target - nums[i];
+            if(myMap.contains(temp) && myMap[temp] != i){
+                result.push_back(i);
+                result.push_back(myMap[temp]);
+                break;
             }
         }
         return result;
@@ -17,6 +21,7 @@ public:
 };
 
 //C
+//run in O(n^2)
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
