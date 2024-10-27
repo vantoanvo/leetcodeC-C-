@@ -28,3 +28,22 @@ public:
         return result;
     }
 };
+
+//C
+
+char* longestCommonPrefix(char** strs, int strsSize) {
+    size_t size = strlen(strs[0]);
+    char* str = (char*)calloc(size + 1, sizeof(char));
+    unsigned i, j;
+    for(i = 0; i < size; ++i){
+        for(j = 0; j < strsSize; j++){
+            if(strs[0][i] != strs[j][i]){
+                str[i] = '\0';
+                return str; 
+            }
+        }
+        str[i] = strs[0][i];
+    }
+    str[i] = '\0';
+    return str;
+}
