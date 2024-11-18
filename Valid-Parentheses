@@ -1,0 +1,39 @@
+20. Valid Parentheses
+
+//C++
+
+class Solution {
+public:
+    bool isValid(string s) {
+        std::stack<char> temp;
+        for(auto c: s){
+            if(c == '(' || c == '{' || c == '['){
+                temp.push(c);
+            }else{
+                if(c == ')'){
+                    if(temp.size() == 0 || temp.top() != '('){
+                        return false;
+                    }else{
+                        temp.pop();
+                    }
+                }
+                if(c == ']'){
+                    if(temp.size() == 0 || temp.top() != '['){
+                        return false;
+                    }else{
+                        temp.pop();
+                    }
+                }
+                if(c == '}'){
+                    if(temp.size() == 0 || temp.top() != '{'){
+                        return false;
+                    }else{
+                        temp.pop();
+                    }
+                }
+            }
+        }
+        if(temp.size() != 0)return false;
+        return true;
+    }
+};
