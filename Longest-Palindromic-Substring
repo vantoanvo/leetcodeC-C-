@@ -1,0 +1,35 @@
+Longest Palindromic Substring
+Given a string s, return the longest 
+palindromic
+ 
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        string temp ="";
+        int maxLen = 0;
+        string longest;
+        for(int i = 0; i < s.length(); i++){
+            int head = i, tail = i;
+            while(head >= 0 && tail < s.length() && s[head] == s[tail]){
+                int length = tail - head + 1;      
+                if(length > maxLen){
+                    maxLen = length;
+                    longest = s.substr(head, length);
+                }
+                head--;
+                tail++;
+            }
+            head = i, tail = i + 1;
+            while(head >= 0 && tail < s.length() && s[head] == s[tail]){
+                int length = tail - head + 1;
+                if(length > maxLen){
+                    maxLen = length;
+                    longest = s.substr(head, length);
+                }
+                head--;
+                tail++;
+            }
+        }
+        return longest;
+    }
+};
