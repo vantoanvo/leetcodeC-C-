@@ -1,0 +1,57 @@
+ADD BINARY
+
+Given two binary strings a and b, return their sum as a binary string.
+
+ 
+
+Example 1:
+
+Input: a = "11", b = "1"
+Output: "100"
+Example 2:
+
+Input: a = "1010", b = "1011"
+Output: "10101"
+
+
+Answer:
+
+char* addBinary(char* a, char* b) {
+    //check and modify the strings
+    if(strlen(b) > strlen(a)){
+        char * temp = a;
+        a = b;
+        b = temp;
+    }
+    int diff = strlen(a) - strlen(b);
+    char * new_str = (char *)malloc(strlen(a) + 1);
+    if(new_str == NULL){
+        fprintf(stderr, "error allocating memory");
+    }
+    memset(new_str, '0', diff);
+    strcpy(new_str + diff, b);
+    new_str[strlen(a)] = '\0';
+
+    //start adding the binary
+    char *result = (char *) malloc(strlen(a) + 2);
+    char *final_result = (char *) malloc(strlen(a)+2);
+    int carry = 0;
+    for(int i = strlen(a) - 1; i >= 0; i--){
+        int num_a = a[i] - '0';
+        int num_b = new_str[i] - '0';
+        int sum = num_a + num_b + carry;
+        result[i + 1] = sum%2 + '0';
+        carry = sum/2;
+    }
+    result[strlen(a) + 1] = '\0';
+    if(carry == 1){
+        result[0] = '1';
+        strcpy(final_result, result);
+    }else{
+        strcpy(final_result, result + 1);
+    }
+    
+    free(new_str);
+    free(result);
+    return final_result;
+}
